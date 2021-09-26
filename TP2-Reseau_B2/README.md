@@ -106,7 +106,7 @@ rtt min/avg/max/mdev = 0.561/0.897/1.110/0.206 ms
 ```
 ##### stoppez la capture, et exportez-la sur votre hôte pour visualiser avec Wireshark
 ##### mettez en évidence les trames ARP
-![](./img/Screen1.png)
+![](/img/Screen1.png)
 **écrivez, dans l'ordre, les échanges ARP qui ont eu lieu, je veux TOUTES les trames**
 - uniquement l'ARP
 - sans doublons de trame, dans le cas où vous avez des trames en double

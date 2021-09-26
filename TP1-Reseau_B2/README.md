@@ -38,7 +38,7 @@ default via 10.33.3.253 dev wlp4s0 proto dhcp metric 600
 #### Trouvez comment afficher les informations sur une carte IP (change selon l'OS)
 *trouvez l'IP, la MAC et la gateway pour l'interface WiFi de votre PC*
 
-![](/img/Screen1.png)
+![](../img/Screen1.png)
 
 * à quoi sert la gateway dans le réseau d'YNOV ?*
 ```
