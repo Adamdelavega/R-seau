@@ -199,8 +199,7 @@ rtt min/avg/max/mdev = 17.642/620.263/1021.937/433.925 ms, pipe 2
 ```
 Nous allons prendre les IP 192.168.0.1 et 192.168.0.2(moi) avec un mask 255.255.252.0
 ```
-![](img/Screen4.png)
-
+![](img/screen4.png)
 ##### vérifiez à l'aide de commandes que vos changements ont pris effet
 ```
 ip a
