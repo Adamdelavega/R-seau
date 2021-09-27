@@ -108,7 +108,7 @@ rtt min/avg/max/mdev = 0.561/0.897/1.110/0.206 ms
 ##### mettez en évidence les trames ARP
 
 
-![Coucou](img/Screen1.png)
+![](img/Screen1.png)
 
 
 **écrivez, dans l'ordre, les échanges ARP qui ont eu lieu, je veux TOUTES les trames**
@@ -555,7 +555,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/dhcpd.service → /u
 ```
 - créer une machine `node2.net1.tp2`
 
-**Voir screen2**
+![](img/Screen2.png)
 
 
 - faites lui récupérer une IP en DHCP à l'aide de votre serveur
@@ -563,7 +563,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/dhcpd.service → /u
 sudo dhclient -v enp0s8
 ```
 
-**Voir screen3**
+![](img/Screen3.png)
 
 
 **Améliorer la configuration du DHCP**
@@ -606,7 +606,7 @@ sudo dhclient -r -v enp0s8
 pour se liberer de l'IP
 ```
 
-**Voir screen4**
+![](img/Screen4.png)
 
 ```
 sudo dhclient -v enp0s8
@@ -615,7 +615,7 @@ pour demander une nouvelle IP
 - `node2.net1.tp2` doit avoir une IP
 - vérifier avec une commande qu'il a récupéré son IP
 
-**Voir screen5**
+![](img/Screen5.png)
 
 - vérifier qu'il peut `ping` sa passerelle
 ```
@@ -728,7 +728,7 @@ tp2_dhcp.pcap                                 100% 4016     8.7MB/s   00:00
 ```
 - mettez en évidence l'échange DHCP *DORA* (Disover, Offer, Request, Acknowledge)
 
-**Voir screen6**
+![](img/Screen6.png)
 
 ***L'échange DORA se fait sur les lignes 4/7/8/9***
 - **écrivez, dans l'ordre, les échanges ARP + DHCP qui ont lieu, je veux TOUTES les trames utiles pour l'échange**
