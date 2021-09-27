@@ -370,7 +370,7 @@ PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.846/1.071/1.297/0.225 ms
 ```
 
-![](img/Screen7.png.png)
+![](img/Screen7.png)
 
 #####  Autoriser le traffic sur le port qu'utilise nc
 ###### on parle bien d'ouverture de port TCP et/ou UDP
@@ -385,6 +385,7 @@ Rule added
 Rule added (v6)
 ```
 ![](img/Screen8.png)
+
 ![](img/Screen9.png)
 
 ```
