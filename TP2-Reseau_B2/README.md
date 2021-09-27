@@ -108,7 +108,7 @@ rtt min/avg/max/mdev = 0.561/0.897/1.110/0.206 ms
 ##### mettez en évidence les trames ARP
 
 
-**voir Screen1**
+![Coucou](img/Screen1.png)
 
 
 **écrivez, dans l'ordre, les échanges ARP qui ont eu lieu, je veux TOUTES les trames**
