@@ -38,7 +38,7 @@ default via 10.33.3.253 dev wlp4s0 proto dhcp metric 600
 #### Trouvez comment afficher les informations sur une carte IP (change selon l'OS)
 *trouvez l'IP, la MAC et la gateway pour l'interface WiFi de votre PC*
 
-![](../img/Screen1.png)
+![](img/Screen1.png)
 
 * à quoi sert la gateway dans le réseau d'YNOV ?*
 ```
@@ -47,7 +47,7 @@ La gateway ou passerelle sert à communiquer avec d'autre machines dans un rése
 # 2.Modifications des informations
 ### A.Modification d'adresse IP (part 1)
 
-![](/img/Screen2.png)
+![](img/Screen2.png)
 
 ```
 Il est possible de perdre son acces à internet car  il peux avoir plusieurs machine avec la même IP donc un souci de compatibilité
@@ -149,7 +149,7 @@ Je choisi l'adresse 10.33.3.134 car elle est libre
 ```
 ###### configurez correctement votre gateway pour avoir accès à d'autres réseaux (utilisez toujours la gateway d'YNOV)
 
-![](/img/Screen3.png)
+![](img/Screen3.png)
 
 ###### prouvez en une suite de commande que vous avez bien l'IP choisie, que votre passerelle est bien définie, et que vous avez un accès internet
 ```
@@ -199,7 +199,7 @@ rtt min/avg/max/mdev = 17.642/620.263/1021.937/433.925 ms, pipe 2
 ```
 Nous allons prendre les IP 192.168.0.1 et 192.168.0.2(moi) avec un mask 255.255.252.0
 ```
-![](/img/Screen4.png)
+![](img/Screen4.png)
 
 ##### vérifiez à l'aide de commandes que vos changements ont pris effet
 ```
@@ -275,7 +275,7 @@ rtt min/avg/max/mdev = 0.500/0.559/0.622/0.049 ms
 ##### sur le PC qui n'a plus internet
 ###### sur la carte Ethernet, définir comme passerelle l'adresse IP de l'autre PC
 
-![](/img/Screen5.png)
+![](img/Screen5.png)
 
 ##### sur le PC qui a toujours internet
 ###### our tester la connectivité à internet on fait souvent des requêtes simples vers un serveur internet connu encore une fois, un ping vers un DNS connu comme 1.1.1.1 ou 8.8.8.8 c'est parfait
@@ -340,7 +340,7 @@ J'ai du refaire la partie partage de connection via un calbe eternet.
 sudo ufw enable
 Firewall is active and enabled on system startup
 ```
-![](/img/Screen6.png)
+![](img/Screen6.png)
 
 #####  Autoriser les ping
 ###### configurer le firewall de votre OS pour accepter le ping
@@ -370,7 +370,7 @@ PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.846/1.071/1.297/0.225 ms
 ```
 
-![](/img/Screen7.png)
+![](img/Screen7.png.png)
 
 #####  Autoriser le traffic sur le port qu'utilise nc
 ###### on parle bien d'ouverture de port TCP et/ou UDP
@@ -384,15 +384,15 @@ sudo ufw allow 10000/udp
 Rule added
 Rule added (v6)
 ```
-![](/img/Screen8.png)
-![](/img/Screen9.png)
+![](img/Screen8.png)
+![](img/Screen9.png)
 
 ```
  nc 192.168.0.1 10000
 coucou
 
 ```
-![](/img/Screen10.png)
+![](img/Screen10.png)
 
 ### III. Manipulations d'autres outils/protocoles côté client
 #### 1. DHCP
@@ -529,16 +529,16 @@ On peux voir les noms de domaines qui sont reliés aux adresses IP
 ```
 On peux voir que c'est un ping grace au protocol ICMP
 ```
-![](/img/Screen11.png)
+![](img/Screen11.png)
 
 ###### un netcat entre vous et votre mate, branché en RJ45
 ```
 voici copment j'ai voulu faire la minupaltion.
 J'ai pris soins de capturer sur la bonne carte réseau et de mettre un filtre
 ```
-![](/img/Screen12.png)
+![](img/Screen12.png)
 ###### une requête DNS. Identifiez dans la capture le serveur DNS à qui vous posez la question.
 ```
 On peux voir les requettes DNS grace au filtre DNS
 ```
-![](/img/Screen13.png)
+![](img/Screen13.png)
