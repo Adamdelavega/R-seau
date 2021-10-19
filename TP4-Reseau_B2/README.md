@@ -269,9 +269,5 @@ L'adresse des machines au sein de ces réseaux :
 
 
 
-cocou
-
-
-
 
 
