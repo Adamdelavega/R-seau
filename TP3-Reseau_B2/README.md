@@ -4,12 +4,6 @@
 
 **Vous me rendrez un 🗃️ tableau des réseaux 🗃️ qui rend compte des adresses choisies, sous la forme** :
 
-| Nom du réseau | Adresse du réseau | Masque            | Nombre de clients possibles | Adresse passerelle | [Adresse broadcast|
-|---------------|-------------------|-------------------|-----------------------------|--------------------|-------------------|
-| `server1`     | `10.3.0.0/25`     | `255.255.255.128` | `128 - 3 = 125`             | `10.3.0.126`       | `10.3.0.127`      |
-| `client1`     | `10.3.0.128/26`   | `255.255.255.192` | `64 - 3 = 61`               | `10.3.0.190`       | `10.3.0.191`      |
-| `server2`     | `10.3.0.192/26`   | `255.255.255.192` | `64 - 3 = 61`               | `10.3.0.254`       | `10.3.3.255`      |
-
 **Vous pouvez d'ores-et-déjà créer le routeur. Pour celui-ci, vous me prouverez que :**
 
 - il a bien une IP dans les 3 réseaux, l'IP que vous avez choisie comme IP de passerelle
@@ -1148,23 +1142,24 @@ TCP
 
 **Bah j'veux un schéma.**
 
-- réalisé avec l'outil de votre choix
-- un schéma clair qui représente
-  - les réseaux
-    - les adresses de réseau devront être visibles
-  - toutes les machines, avec leurs noms
-  - devront figurer les IPs de toutes les interfaces réseau du schéma
-  - pour les serveurs : une indication de quel port est ouvert
-- vous représenterez les host-only comme des switches
-- dans le rendu, mettez moi ici à la fin :
-  - le schéma
-  - le 🗃️ tableau des réseaux 🗃️
-  - le 🗃️ tableau d'adressage 🗃️
-    - on appelle ça aussi un "plan d'adressage IP" :)
 
 
+| Nom du réseau | Adresse du réseau | Masque            | Nombre de clients possibles | Adresse passerelle | [Adresse broadcast|
+|---------------|-------------------|-------------------|-----------------------------|--------------------|-------------------|
+| `server1`     | `10.3.0.0/25`     | `255.255.255.128` | `128 - 3 = 125`             | `10.3.0.126`       | `10.3.0.127`      |
+| `client1`     | `10.3.0.128/26`   | `255.255.255.192` | `64 - 3 = 61`               | `10.3.0.190`       | `10.3.0.191`      |
+| `server2`     | `10.3.0.192/26`   | `255.255.255.192` | `64 - 3 = 61`               | `10.3.0.254`       | `10.3.3.255`      |
 
 
+| Nom de machine| Adresse du réseau | Masque            | Adresse passerelle |
+|---------------|-------------------|-------------------|--------------------|
+| `marcel`      | `10.3.0.128/26`   | `255.255.255.192` | `10.3.0.190`       | 
+| `johnny`      | `10.3.0.128/26`   | `255.255.255.192` | `10.3.0.190`       |
+| `dns1`        | `10.3.0.0/25`     | `255.255.255.128` | `10.3.0.126`       |
+| `dhcp`        | `10.3.0.128/26`   | `255.255.255.192` | `10.3.0.190`       |
+| `router`      | `les 3 réseaux`   | `les trois aussi` | `les trois aussi`  |
+| `web1`        | `10.3.0.192/26`   | `255.255.255.192` | `10.3.0.254`       |
+| `nfs1`        | `10.3.0.192/26`   | `255.255.255.192` | `10.3.0.254`       |
 
 
 
