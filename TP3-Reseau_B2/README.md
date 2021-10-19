@@ -1142,6 +1142,10 @@ TCP
 
 **Bah j'veux un schéma.**
 
+![](Screen/Screen3.png)
+
+
+
 
 
 | Nom du réseau | Adresse du réseau | Masque            | Nombre de clients possibles | Adresse passerelle | [Adresse broadcast|
