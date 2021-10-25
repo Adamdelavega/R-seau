@@ -612,6 +612,26 @@ rtt min/avg/max/mdev = 19.197/26.643/34.089/7.446 ms
 
 ## 1. Topologie 4
 
+## 2. Adressage topologie 4
+
+Les réseaux et leurs VLANs associés :
+
+| Réseau    | Adresse       | VLAN associé |
+|-----------|---------------|--------------|
+| `clients` | `10.1.1.0/24` | 11           |
+| `admins`  | `10.2.2.0/24` | 12           |
+| `servers` | `10.3.3.0/24` | 13           |
+
+L'adresse des machines au sein de ces réseaux :
+
+| Node               | `clients`       | `admins`        | `servers`       |
+|--------------------|-----------------|-----------------|-----------------|
+| `pc1.clients.tp4`  | `10.1.1.1/24`   | x               | x               |
+| `pc2.clients.tp4`  | `10.1.1.2/24`   | x               | x               |
+| `adm1.admins.tp4`  | x               | `10.2.2.1/24`   | x               |
+| `web1.servers.tp4` | x               | x               | `10.3.3.1/24`   |
+| `r1`               | `10.1.1.254/24` | `10.2.2.254/24` | `10.3.3.254/24` |
+
 ## 3. Setup topologie 4
 
 **Ajoutez le noeud Cloud à la topo**
@@ -738,6 +758,34 @@ google.com resolved to 172.217.19.238
 
 ## 2. Adressage topologie 5
 
+Les réseaux et leurs VLANs associés :
+
+| Réseau    | Adresse       | VLAN associé |
+|-----------|---------------|--------------|
+| `clients` | `10.1.1.0/24` | 11           |
+| `admins`  | `10.2.2.0/24` | 12           |
+| `servers` | `10.3.3.0/24` | 13           |
+
+L'adresse des machines au sein de ces réseaux :
+
+| Node                | `clients`       | `admins`        | `servers`       |
+|---------------------|-----------------|-----------------|-----------------|
+| `pc1.clients.tp4`   | `10.1.1.1/24`   | x               | x               |
+| `pc2.clients.tp4`   | `10.1.1.2/24`   | x               | x               |
+| `pc3.clients.tp4`   | DHCP            | x               | x               |
+| `pc4.clients.tp4`   | DHCP            | x               | x               |
+| `pc5.clients.tp4`   | DHCP            | x               | x               |
+| `dhcp1.clients.tp4` | `10.1.1.253/24` | x               | x               |
+| `adm1.admins.tp4`   | x               | `10.2.2.1/24`   | x               |
+| `web1.servers.tp4`  | x               | x               | `10.3.3.1/24`   |
+| `r1`                | `10.1.1.254/24` | `10.2.2.254/24` | `10.3.3.254/24` |
+
+
+**Vous devez me rendre le `show running-config` de tous les équipements**
+
+- de tous les équipements réseau
+  - le routeur
+  - les 3 switches
 
 
 
