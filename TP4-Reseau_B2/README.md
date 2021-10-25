@@ -16,7 +16,7 @@
 
 - définissez les IPs statiques sur les deux VPCS
 ```
-PC1> ip 10.1.1.1 255.255.255.0
+PC1> ip 10.1.1.1/24
 Checking for duplicate address...
 PC1 : 10.1.1.1 255.255.255.0
 PC1> show ip
@@ -31,7 +31,7 @@ RHOST:PORT  : 127.0.0.1:20005
 MTU         : 1500
 
 
-PC2> ip 10.1.1.2 255.255.255.0
+PC2> ip 10.1.1.2/24
 Checking for duplicate address...
 PC2 : 10.1.1.2 255.255.255.0
 PC2> show ip
@@ -198,7 +198,7 @@ Switch(config-if)#exit
 ```
 **Vlan pour PC3**
 ```
-Switch(config)#interface GigabitEthernet0/3
+Switch(config)#interface GigabitEthernet0/2
 Switch(config-if)#switchport mode access      
 Switch(config-if)#switchport access vlan 20   
 Switch(config-if)#exit
@@ -272,64 +272,46 @@ L'adresse des machines au sein de ces réseaux :
 
 **pc1**
 ```
-PC1> show ip       
+PC1> show ip                  
 
 NAME        : PC1[1]
-IP/MASK     : 0.0.0.0/0
+IP/MASK     : 10.1.1.1/24
 GATEWAY     : 0.0.0.0
 DNS         : 
+DOMAIN NAME : pc1.clients.tp4
 MAC         : 00:50:79:66:68:00
-LPORT       : 20007
-RHOST:PORT  : 127.0.0.1:20008
+LPORT       : 20006
+RHOST:PORT  : 127.0.0.1:20007
 MTU         : 1500
-
-PC1> ip 10.1.1.1/24
-Checking for duplicate address...
-PC1 : 10.1.1.1 255.255.255.0
-PC1> ip domain pc1.clients.tp4
-
-PC1> 
 ```
 **pc2**
 ```
-PC2> show ip
+PC2> show ip                  
 
 NAME        : PC2[1]
-IP/MASK     : 0.0.0.0/0
+IP/MASK     : 10.1.1.2/24
 GATEWAY     : 0.0.0.0
 DNS         : 
+DOMAIN NAME : pc2.clients.tp4
 MAC         : 00:50:79:66:68:01
-LPORT       : 20009
-RHOST:PORT  : 127.0.0.1:20010
+LPORT       : 20004
+RHOST:PORT  : 127.0.0.1:20005
 MTU         : 1500
-
-PC2> ip 10.1.1.2/24
-Checking for duplicate address...
-PC2 : 10.1.1.2 255.255.255.0
-PC2> ip domain pc2.clients.tp4
-
-PC2> 
 ```
 
 **adm1**
 ```
-adm1> show ip
+PC3> show ip
 
-NAME        : adm1[1]
-IP/MASK     : 0.0.0.0/0
+NAME        : PC3[1]
+IP/MASK     : 10.2.2.1/24
 GATEWAY     : 0.0.0.0
 DNS         : 
+DOMAIN NAME : adm1.admins.tp4
 MAC         : 00:50:79:66:68:02
-LPORT       : 20043
-RHOST:PORT  : 127.0.0.1:20044
+LPORT       : 20042
+RHOST:PORT  : 127.0.0.1:20043
 MTU         : 1500
-
-adm1> ip 10.2.2.1/24
-Checking for duplicate address...
-adm1 : 10.2.2.1 255.255.255.0
-adm1> ip domain adm1.admins.tp4
-
-adm1> 
 ```
 
 **web1**
@@ -377,26 +359,15 @@ connect: Network is unreachable
 
 **Déclaration des Vlans**
 ```
-Switch>en
-Switch#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-Switch(config)#vlan 11
-Switch(config-vlan)#name clients
-Switch(config-vlan)#exit
-Switch(config)#vlan 12
-Switch(config-vlan)#name admins
-VLAN #12 and #10 have an identical name: admins
-Switch(config-vlan)#exit
-Switch(config)#vlan database
-Switch(config)#vlan database
-Command rejected: Bad VLAN list - character #1 is a non-numeric
-character ('d').
 Switch(config)#no vlan 10
 Switch(config)#no vlan 20
-Switch(config)#vlan 12
-Switch(config-vlan)#name admins
+Switch(config)#vlan 11
+Switch(config-vlan)#name clients
+Switch(config-vlan)#exit        
+Switch(config)#vlan 12     
+Switch(config-vlan)#name admins 
 Switch(config-vlan)#exit
-Switch(config)#vlan 13
+Switch(config)#vlan 13    
 Switch(config-vlan)#name servers
 Switch(config-vlan)#exit
 ```
@@ -406,15 +377,14 @@ Switch(config-vlan)#exit
 **Vlan clients**
 
 ```
-Switch(config)#interface GigabitEthernet0/0 
+Switch(config)#interface GigabitEthernet0/0
 Switch(config-if)#switchport mode access
 Switch(config-if)#switchport access vlan 11
-Switch(config-if)#
 Switch(config-if)#exit
 Switch(config)#interface GigabitEthernet0/1
 Switch(config-if)#switchport mode access      
 Switch(config-if)#switchport access vlan 11   
-Switch(config-if)#exit                        
+Switch(config-if)#exit                                              
 ```
 **Vlan admins**
 
@@ -437,13 +407,12 @@ Switch(config-if)#exit
 **Mode trunk**
 
 ```
-Switch>en
-Switch#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
 Switch(config)#interface GigabitEthernet1/0
-Switch(config-if)#switchport trunk encapsulation dot1q             
+Switch(config-if)#switchport trunk encapsulation dot1q
 Switch(config-if)#switchport mode trunk
-Switch(config-if)#switchport trunk allowed vlan add 11,12,13
+Switch(config-if)#switchport trunk allowed vlan add 11
+Switch(config-if)#switchport trunk allowed vlan add 12
+Switch(config-if)#switchport trunk allowed vlan add 13
 Switch(config-if)#exit
 Switch(config)#exit
 Switch#show interface trunk
@@ -459,15 +428,14 @@ Gi1/0       1,11-13
 
 Port        Vlans in spanning tree forwarding state and not pruned
 Gi1/0       1,11-13
+Switch#
 ```
 
-**Pour le *routeur**
-- référez-vous au [mémo Cisco](../../cours/memo/memo_cisco.md)
-- ici, on va avoir besoin d'un truc très courant pour un *routeur* : qu'il porte plusieurs IP sur une unique interface
-  - avec Cisco, on crée des "sous-interfaces" sur une interface
-  - et on attribue une IP à chacune de ces sous-interfaces
-- en plus de ça, il faudra l'informer que, pour chaque interface, elle doit être dans un VLAN spécifique
-- 
+**Config du *routeur***
+
+- attribuez ses IPs au *routeur*
+  - 3 sous-interfaces, chacune avec son IP et un VLAN associé
+
 ```
 R1(config)#interface FastEthernet0/0.11
 R1(config-subif)#encapsulation dot1Q 11      
@@ -486,11 +454,298 @@ R1(config-subif)#encapsulation dot1Q 13
 R1(config-subif)#ip addr 10.3.3.254 255.255.255.0
 R1(config-subif)#exit
 ```
+```
+R1(config)#interface fastEthernet 0/0       
+R1(config-if)#no shut
+R1(config-if)#
+*Mar  1 00:11:00.343: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
+*Mar  1 00:11:01.343: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+```
 
- **Config du *routeur***
+**Vérif**
 
-- attribuez ses IPs au *routeur*
-  - 3 sous-interfaces, chacune avec son IP et un VLAN associé
+- tout le monde doit pouvoir ping le routeur sur l'IP qui est dans son réseau
+- en ajoutant une route vers les réseaux, ils peuvent se ping entre eux
+  - ajoutez une route par défaut sur les VPCS
+  - ajoutez une route par défaut sur la machine virtuelle
+  - testez des `ping` entre les réseaux
+
+**Ping**
+```
+PC1> ping 10.1.1.254
+
+84 bytes from 10.1.1.254 icmp_seq=1 ttl=255 time=10.237 ms
+84 bytes from 10.1.1.254 icmp_seq=2 ttl=255 time=11.027 ms
+
+PC2> ping 10.1.1.254
+
+84 bytes from 10.1.1.254 icmp_seq=1 ttl=255 time=16.775 ms
+84 bytes from 10.1.1.254 icmp_seq=2 ttl=255 time=10.294 ms
+
+adm1> ping 10.2.2.254
+
+84 bytes from 10.2.2.254 icmp_seq=1 ttl=255 time=22.680 ms
+84 bytes from 10.2.2.254 icmp_seq=2 ttl=255 time=16.718 ms
+
+[adam@web1 ~]$ ping 10.3.3.254
+PING 10.3.3.254 (10.3.3.254) 56(84) bytes of data.
+64 bytes from 10.3.3.254: icmp_seq=1 ttl=255 time=29.7 ms
+64 bytes from 10.3.3.254: icmp_seq=2 ttl=255 time=11.4 ms
+```
+
+**Ajout des routes**
+```
+PC1> ip 10.1.1.1/24 10.1.1.254
+Checking for duplicate address...
+PC1 : 10.1.1.1 255.255.255.0 gateway 10.1.1.254
+PC1> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+PC1    10.1.1.1/24          10.1.1.254        00:50:79:66:68:00  20006  127.0.0.1:20007
+       fe80::250:79ff:fe66:6800/64
+
+PC2> ip 10.1.1.2/24 10.1.1.254
+Checking for duplicate address...
+PC2 : 10.1.1.2 255.255.255.0 gateway 10.1.1.254
+
+PC2> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+PC2    10.1.1.2/24          10.1.1.254        00:50:79:66:68:01  20004  127.0.0.1:20005
+       fe80::250:79ff:fe66:6801/64
+
+PC3> ip 10.2.2.1/24 10.2.2.254
+Checking for duplicate address...
+PC3 : 10.2.2.1 255.255.255.0 gateway 10.2.2.254
+
+PC3> show
+
+NAME   IP/MASK              GATEWAY           MAC                LPORT  RHOST:PORT
+PC3    10.2.2.1/24          10.2.2.254        00:50:79:66:68:02  20042  127.0.0.1:20043
+       fe80::250:79ff:fe66:6802/64
+
+[adam@web1 ~]$ sudo cat /etc/sysconfig/network-scripts/ifcfg-enp0s3
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=static
+DEFROUTE=yes
+NAME=enp0s3
+UUID=38ad34d6-6f1e-417c-b804-25ccdd9deff3
+DEVICE=enp0s3
+ONBOOT=yes
+IPADDR=10.3.3.1
+NETMASK=255.255.255.0
+GATEWAY=10.3.3.254
+```
+
+**Ping**
+```
+PC1> ping 10.2.2.1
+
+84 bytes from 10.2.2.1 icmp_seq=1 ttl=63 time=27.191 ms
+84 bytes from 10.2.2.1 icmp_seq=2 ttl=63 time=22.526 ms
+^C
+
+PC1> ping 10.3.3.1
+
+84 bytes from 10.3.3.1 icmp_seq=1 ttl=63 time=26.413 ms
+84 bytes from 10.3.3.1 icmp_seq=2 ttl=63 time=19.317 ms
+^C
+```
+```
+PC2> ping 10.2.2.1
+
+84 bytes from 10.2.2.1 icmp_seq=1 ttl=63 time=29.859 ms
+84 bytes from 10.2.2.1 icmp_seq=2 ttl=63 time=26.430 ms
+
+PC2> ping 10.3.3.1
+
+84 bytes from 10.3.3.1 icmp_seq=1 ttl=63 time=44.806 ms
+84 bytes from 10.3.3.1 icmp_seq=2 ttl=63 time=17.911 ms
+```
+```
+PC3> ping 10.1.1.1
+
+84 bytes from 10.1.1.1 icmp_seq=1 ttl=63 time=31.047 ms
+84 bytes from 10.1.1.1 icmp_seq=2 ttl=63 time=20.791 ms
+^C
+PC3> ping 10.1.1.2
+
+84 bytes from 10.1.1.2 icmp_seq=1 ttl=63 time=21.329 ms
+84 bytes from 10.1.1.2 icmp_seq=2 ttl=63 time=39.033 ms
+^C
+PC3> ping 10.3.3.1  
+
+84 bytes from 10.3.3.1 icmp_seq=1 ttl=63 time=20.682 ms
+84 bytes from 10.3.3.1 icmp_seq=2 ttl=63 time=35.316 ms
+^C
+```
+```
+[adam@web1 ~]$ ping 10.1.1.1
+PING 10.1.1.1 (10.1.1.1) 56(84) bytes of data.
+64 bytes from 10.1.1.1: icmp_seq=1 ttl=63 time=41.6 ms
+64 bytes from 10.1.1.1: icmp_seq=2 ttl=63 time=22.5 ms
+^C
+--- 10.1.1.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 22.494/32.051/41.609/9.559 ms
+[adam@web1 ~]$ ping 10.1.1.2
+PING 10.1.1.2 (10.1.1.2) 56(84) bytes of data.
+64 bytes from 10.1.1.2: icmp_seq=1 ttl=63 time=41.10 ms
+64 bytes from 10.1.1.2: icmp_seq=2 ttl=63 time=24.7 ms
+^C
+--- 10.1.1.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1000ms
+rtt min/avg/max/mdev = 24.700/33.331/41.963/8.633 ms
+[adam@web1 ~]$ ping 10.2.2.1
+PING 10.2.2.1 (10.2.2.1) 56(84) bytes of data.
+64 bytes from 10.2.2.1: icmp_seq=1 ttl=63 time=34.1 ms
+64 bytes from 10.2.2.1: icmp_seq=2 ttl=63 time=19.2 ms
+^C
+--- 10.2.2.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 19.197/26.643/34.089/7.446 ms
+```
+
+# IV. NAT
+
+## 1. Topologie 4
+
+## 3. Setup topologie 4
+
+**Ajoutez le noeud Cloud à la topo**
+
+- branchez à `eth1` côté Cloud
+- côté routeur, il faudra récupérer un IP en DHCP (voir [le mémo Cisco](../../cours/memo/memo_cisco.md))
+- vous devriez pouvoir `ping 1.1.1.1`
+```
+R1(config)#interface FastEthernet1/0       
+R1(config-if)#ip address dhcp
+R1(config-if)#no shut
+R1(config-if)#exit
+
+R1#show ip int br
+Interface                  IP-Address      OK? Method Status                Protocol
+FastEthernet0/0            unassigned      YES unset  up                    up      
+FastEthernet0/0.11         10.1.1.254      YES manual up                    up      
+FastEthernet0/0.12         10.2.2.254      YES manual up                    up      
+FastEthernet0/0.13         10.3.3.254      YES manual up                    up      
+FastEthernet1/0            10.0.3.16       YES DHCP   up                    up      
+FastEthernet2/0            unassigned      YES unset  administratively down down    
+FastEthernet3/0            unassigned      YES unset  administratively down down 
+```
+```
+PC1> ping 1.1.1.1
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=61 time=33.378 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=61 time=36.992 ms
+
+PC2> ping 1.1.1.1
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=61 time=30.518 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=61 time=29.168 ms
+
+PC3> ping 1.1.1.1
+
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=61 time=33.710 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=61 time=29.804 ms
+
+[adam@web1 ~]$ ping 1.1.1.1
+PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+64 bytes from 1.1.1.1: icmp_seq=1 ttl=61 time=33.8 ms
+64 bytes from 1.1.1.1: icmp_seq=2 ttl=61 time=28.1 ms
+```
+
+**Configurez le NAT**
+
+- référez-vous [à la section NAT du mémo Cisco](../../cours/memo/memo_cisco.md#7-configuration-dun-nat-simple)
+```
+R1(config)#interface fastEthernet 0/0
+R1(config-if)#ip nat inside
+
+*Mar  1 00:53:35.159: %LINEPROTO-5-UPDOWN: Line protocol on Interface NVI0, changed state to up
+R1(config-if)#exit
+R1(config)#interface fastEthernet 1/0
+R1(config-if)#ip nat outside            
+R1(config-if)#exit
+```
+
+**Test**
+
+- ajoutez une route par défaut (si c'est pas déjà fait)
+  - sur les VPCS
+  - sur la machine Linux
+- configurez l'utilisation d'un DNS
+  - sur les VPCS
+  - sur la machine Linux
+- vérifiez un `ping` vers un nom de domaine
+
+**web1**
+```
+[adam@web1 ~]$ sudo cat /etc/sysconfig/network-scripts/ifcfg-enp0s3
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=static
+DEFROUTE=yes
+NAME=enp0s3
+UUID=38ad34d6-6f1e-417c-b804-25ccdd9deff3
+DEVICE=enp0s3
+ONBOOT=yes
+IPADDR=10.3.3.1
+NETMASK=255.255.255.0
+GATEWAY=10.3.3.254
+DNS1=1.1.1.1
+
+[adam@web1 ~]$ ping google.com
+PING google.com (142.250.201.174) 56(84) bytes of data.
+64 bytes from par21s23-in-f14.1e100.net (142.250.201.174): icmp_seq=1 ttl=61 time=37.4 ms
+64 bytes from par21s23-in-f14.1e100.net (142.250.201.174): icmp_seq=2 ttl=61 time=26.6 ms
+```
+
+**pc1 et pc2**
+```
+PC1> ping google.com
+google.com resolved to 172.217.19.238
+
+84 bytes from 172.217.19.238 icmp_seq=1 ttl=61 time=28.924 ms
+84 bytes from 172.217.19.238 icmp_seq=2 ttl=61 time=31.487 ms
+
+PC2> ip dns 1.1.1.1
+
+PC2> ping google.com
+google.com resolved to 172.217.19.238
+
+84 bytes from 172.217.19.238 icmp_seq=1 ttl=61 time=32.635 ms
+84 bytes from 172.217.19.238 icmp_seq=2 ttl=61 time=39.774 ms
+```
+
+**adm1**
+```
+PC3> ip dns 1.1.1.1
+
+PC3> ping google.com
+google.com resolved to 172.217.19.238
+
+84 bytes from 172.217.19.238 icmp_seq=1 ttl=61 time=29.099 ms
+84 bytes from 172.217.19.238 icmp_seq=2 ttl=61 time=36.558 ms
+```
+
+# V. Add a building
+
+## 1. Topologie 5
+
+## 2. Adressage topologie 5
+
+
+
+
+
+
+
+
+
 
 
 
