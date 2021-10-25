@@ -1427,6 +1427,43 @@ line vty 0 4
 !         
 end   
 ```
+```
+PC1> show ip
+
+NAME        : PC1[1]
+IP/MASK     : 10.1.1.1/24
+GATEWAY     : 10.1.1.254
+DNS         : 1.1.1.1  
+DOMAIN NAME : pc1.clients.tp4
+MAC         : 00:50:79:66:68:00
+LPORT       : 20028
+RHOST:PORT  : 127.0.0.1:20029
+MTU         : 1500
+
+PC2> show ip
+
+NAME        : PC2[1]
+IP/MASK     : 10.1.1.2/24
+GATEWAY     : 10.1.1.254
+DNS         : 1.1.1.1  
+DOMAIN NAME : pc1.clients.tp4
+MAC         : 00:50:79:66:68:01
+LPORT       : 20030
+RHOST:PORT  : 127.0.0.1:20031
+MTU         : 1500
+
+adm1> show ip
+
+NAME        : adm1[1]
+IP/MASK     : 10.2.2.1/24
+GATEWAY     : 10.2.2.254
+DNS         : 1.1.1.1  
+DOMAIN NAME : adm1.admins.tp4
+MAC         : 00:50:79:66:68:05
+LPORT       : 20036
+RHOST:PORT  : 127.0.0.1:20037
+MTU         : 1500
+```
 
 **Mettre en place un serveur DHCP dans le nouveau bâtiment**
 
