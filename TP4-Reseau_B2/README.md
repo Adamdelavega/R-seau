@@ -785,8 +785,707 @@ L'adresse des machines au sein de ces réseaux :
 
 - de tous les équipements réseau
   - le routeur
+```
+R1#show running-config
+Building configuration...
+
+Current configuration : 1268 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+memory-size iomem 5
+no ip icmp rate-limit unreachable
+!
+!
+ip cef
+no ip domain lookup
+!
+!
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+ip tcp synwait-time 5
+!         
+!         
+!         
+interface FastEthernet0/0
+ no ip address
+ ip nat inside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!         
+interface FastEthernet0/0.11
+ encapsulation dot1Q 11
+ ip address 10.1.1.254 255.255.255.0
+!         
+interface FastEthernet0/0.12
+ encapsulation dot1Q 12
+ ip address 10.2.2.254 255.255.255.0
+!         
+interface FastEthernet0/0.13
+ encapsulation dot1Q 13
+ ip address 10.3.3.254 255.255.255.0
+!         
+interface FastEthernet1/0
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly
+ duplex auto
+ speed auto
+!         
+interface FastEthernet2/0
+ no ip address
+ shutdown 
+ duplex auto
+ speed auto
+!         
+interface FastEthernet3/0
+ no ip address
+ shutdown 
+ duplex auto
+ speed auto
+!         
+!         
+no ip http server
+ip forward-protocol nd
+!         
+!         
+!         
+no cdp log mismatch duplex
+!         
+!         
+!         
+control-plane
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login    
+!         
+!         
+end  
+```
+
   - les 3 switches
 
+**sw1**
+```
+Switch#show run
+Building configuration...
+
+Current configuration : 3685 bytes
+!
+! Last configuration change at 22:15:10 UTC Mon Oct 25 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname Switch
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!         
+!         
+!         
+!         
+ip cef    
+no ipv6 cef
+!         
+!         
+!         
+spanning-tree mode pvst
+spanning-tree extend system-id
+!         
+vlan internal allocation policy ascending
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+interface GigabitEthernet0/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/3
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/0
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/3
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/0
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/3
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/0
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/3
+ media-type rj45
+ negotiation auto
+!         
+ip forward-protocol nd
+!         
+no ip http server
+no ip http secure-server
+!         
+!         
+!         
+!         
+!         
+!         
+control-plane
+!         
+banner exec ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+!         
+line con 0
+line aux 0
+line vty 0 4
+!         
+!         
+end
+```
+
+**sw2**
+```
+Switch#show ru
+Building configuration...
+
+Current configuration : 3767 bytes
+!
+! Last configuration change at 22:12:30 UTC Mon Oct 25 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname Switch
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!         
+!         
+!         
+!         
+ip cef    
+no ipv6 cef
+!         
+!         
+!         
+spanning-tree mode pvst
+spanning-tree extend system-id
+!         
+vlan internal allocation policy ascending
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+interface GigabitEthernet0/0
+ switchport access vlan 11
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/1
+ switchport access vlan 11
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/2
+ switchport access vlan 12
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/3
+ switchport access vlan 13
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/3
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/0
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/3
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/0
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/3
+ media-type rj45
+ negotiation auto
+!         
+ip forward-protocol nd
+!         
+no ip http server
+no ip http secure-server
+!         
+!         
+!         
+!         
+!         
+!         
+control-plane
+!         
+banner exec ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+!         
+line con 0
+line aux 0
+line vty 0 4
+!         
+!         
+end 
+```
+
+**sw3**
+```
+Switch#show run
+Building configuration...
+
+Current configuration : 3767 bytes
+!
+! Last configuration change at 22:19:03 UTC Mon Oct 25 2021
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname Switch
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!         
+!         
+!         
+!         
+ip cef    
+no ipv6 cef
+!         
+!         
+!         
+spanning-tree mode pvst
+spanning-tree extend system-id
+!         
+vlan internal allocation policy ascending
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+interface GigabitEthernet0/0
+ switchport access vlan 11
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/1
+ switchport access vlan 11
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/2
+ switchport access vlan 11
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet0/3
+ switchport access vlan 11
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet1/3
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/0
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet2/3
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/0
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/1
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/2
+ media-type rj45
+ negotiation auto
+!         
+interface GigabitEthernet3/3
+ media-type rj45
+ negotiation auto
+!         
+ip forward-protocol nd
+!         
+no ip http server
+no ip http secure-server
+!         
+!         
+!         
+!         
+!         
+!         
+control-plane
+!         
+banner exec ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+!         
+line con 0
+line aux 0
+line vty 0 4
+!         
+!         
+end   
+```
+
+**Mettre en place un serveur DHCP dans le nouveau bâtiment**
+
+- il doit distribuer des IPs aux clients dans le réseau `clients` qui sont branchés au même switch que lui
+- sans aucune action manuelle, les clients doivent...
+  - avoir une IP dans le réseau `clients`
+  - avoir un accès au réseau `servers`
+  - avoir un accès WAN
+  - avoir de la résolution DNS
+
+Suite à cette erreur je n'ai pas pu continuer le tp
+```
+[adam@dhcp1 ~]$ sudo dnf install -y dhcp-server
+Failed to set locale, defaulting to C.UTF-8
+^CRocky Linux 8 - AppStream                                                           0% [                                                                                 ] 3.0 kB/s |   0  B     51:37 ETRocky Linux 8 - AppStream                                                                                                                                                  0.0  B/s |   0  B     07:03    
+Errors during downloading metadata for repository 'appstream':
+  - Curl error (28): Timeout was reached for http://nlrtm1-edge2.cdn.i3d.net/o1/k9999/pub/rockylinux/8.4/AppStream/x86_64/os/repodata/0c2535842701846572abbf971e6cc382192bbc3d82737d8fd93faada940c2bb4-primary.xml.gz?nonce=MTYzNTIwMTY3MA%3D%3D [Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds]
+  - Curl error (28): Timeout was reached for http://nlrtm1-edge2.cdn.i3d.net/o1/k9999/pub/rockylinux/8.4/AppStream/x86_64/os/repodata/5f4a28e9384e321682fea107ea30e5984c7a25ce1da45629dfd97b7d6b00ce50-filelists.xml.gz?nonce=MTYzNTIwMTcwNg%3D%3D [Operation too slow. Less than 1000 bytes/sec transferred the last 30 seconds]
+  [...]
+  ```
+
+  mais voicic comment je comptais procéder.
+  je modifie le fichier de conf comme ci-dessous.
+```
+[root@dlp ~]# dnf -y install dhcp-server
+[root@dlp ~]# vi /etc/dhcp/dhcpd.conf
+# create new
+
+# specify domain name
+
+option domain-name     "clients.tp4";
+# specify DNS server's hostname or IP address
+
+option domain-name-servers     1.1.1.1;
+# default lease time
+
+default-lease-time 600;
+# max lease time
+
+max-lease-time 7200;
+# this DHCP server to be declared valid
+
+authoritative;
+# specify network address and subnetmask
+
+subnet 10.1.1.0 netmask 255.255.255.0 {
+    # specify the range of lease IP address
+    range dynamic-bootp 10.1.1.3 10.1.1.252;
+    # specify broadcast address
+    option broadcast-address 10.0.0.255;
+    # specify gateway
+    option routers 10.1.1.254;
+}
+```
+j'active le service et j'autorise le trafique sur le firewall pour le service dhcpd
+[root@dlp ~]# systemctl enable --now dhcpd
+firewall-cmd --add-service=dhcp 
+
+je n'ai plus qu'a demander une nouvelle IP avec la commande dhclient -v (-v pour demander et -r pour lacher)
 
 
 
